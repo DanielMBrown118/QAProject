@@ -12,6 +12,7 @@ namespace QAProject
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
             IWebDriver driver = new ChromeDriver(@"C:/Selenium");
@@ -38,19 +39,41 @@ namespace QAProject
             IWebElement Location = driver.FindElement(By.Id("location"));
 
             // Random last name to use as a username
+            // stored as a string for later use
             var Faker = new Faker("en");
-            string Username = Faker.Name.LastName();
+            string Username = Faker.Name.LastName(); 
             Console.WriteLine(Username); // for testing purposes
 
             // Tests only inputting a username
             // Works as intended despite my 1st test suggesting it wouldn't
             TestOnlyUsername(driver, Username);
+            ScreenName.Clear();
+
+            // This function fills every textbox
+            // Feel free to copy it
+            FillInfo(FirstName, LastName,Email,ScreenName,Password,PasswordConfirm,PhoneNum,Address,Province,PostalCode,Url,Description,Location,Username);
             
+            //Thread.Sleep(10000);
 
-            FirstName.SendKeys("John");
-            LastName.SendKeys("Doe");
+        }
+        static void FillInfo(IWebElement FirstName, IWebElement LastName, IWebElement Email, IWebElement ScreenName,
+            IWebElement Password, IWebElement PasswordConfirm, IWebElement PhoneNum, IWebElement Address, IWebElement Province,
+            IWebElement PostalCode, IWebElement Url, IWebElement Description, IWebElement Location, String Username)
+        {
+            var Faker = new Faker("en");
+            FirstName.SendKeys(Faker.Name.FirstName());
+            LastName.SendKeys(Faker.Name.LastName());
             Email.SendKeys("Email@Gmail.com");
-
+            ScreenName.SendKeys(Username);
+            Password.SendKeys("Password123");
+            PasswordConfirm.SendKeys("Password123");
+            PhoneNum.SendKeys(Faker.Phone.PhoneNumberFormat());
+            Address.SendKeys(Faker.Address.StreetAddress());
+            //Province I don't know how to select a drop down box
+            PostalCode.SendKeys(Faker.Address.ZipCode());
+            Url.SendKeys(Faker.Internet.Url());
+            Description.SendKeys(Faker.Rant.Review());
+            Location.SendKeys(Faker.Address.State());
         }
         static void TestOpenSignup(IWebDriver driver)
         {   // Test ID: TestOpen1
