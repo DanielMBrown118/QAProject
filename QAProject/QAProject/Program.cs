@@ -52,81 +52,18 @@ namespace QAProject
             driver.SwitchTo().Alert().Accept();
             TestOpenSignup(driver);
 
-            // refresh the variables because leaving the page breaks them
-            FirstName = driver.FindElement(By.Id("firstname"));
-            LastName = driver.FindElement(By.Id("lastname"));
-            Email = driver.FindElement(By.Id("email"));
-            ScreenName = driver.FindElement(By.Id("username"));
-            Password = driver.FindElement(By.Id("password"));
-            PasswordConfirm = driver.FindElement(By.Id("confirm"));
-            PhoneNum = driver.FindElement(By.Id("phone"));
-            Address = driver.FindElement(By.Id("address"));
-            Province = driver.FindElement(By.Id("province"));
-            PostalCode = driver.FindElement(By.Id("postalCode"));
-            Url = driver.FindElement(By.Id("url"));
-            Description = driver.FindElement(By.Id("desc"));
-            Location = driver.FindElement(By.Id("location"));
+            driver.Close();
 
-            // This function fills every textbox in the signup
-            FillInfo(FirstName, LastName, Email, ScreenName, Password, PasswordConfirm, PhoneNum, Address, Province, PostalCode, Url, Description, Location, Username);
+            IWebDriver driver1 = new ChromeDriver("C:/Selenium");
+            driver1.Navigate().GoToUrl("http://10.157.123.12/site8/login.php");
 
-            TestNoFirstName(driver, FirstName);
-            FirstName = driver.FindElement(By.Id("firstname"));
-            LastName = driver.FindElement(By.Id("lastname"));
-            Email = driver.FindElement(By.Id("email"));
-            ScreenName = driver.FindElement(By.Id("username"));
-            Password = driver.FindElement(By.Id("password"));
-            PasswordConfirm = driver.FindElement(By.Id("confirm"));
-            PhoneNum = driver.FindElement(By.Id("phone"));
-            Address = driver.FindElement(By.Id("address"));
-            Province = driver.FindElement(By.Id("province"));
-            PostalCode = driver.FindElement(By.Id("postalCode"));
-            Url = driver.FindElement(By.Id("url"));
-            Description = driver.FindElement(By.Id("desc"));
-            Location = driver.FindElement(By.Id("location"));
-            FillInfo(FirstName, LastName, Email, ScreenName, Password, PasswordConfirm, PhoneNum, Address, Province, PostalCode, Url, Description, Location, Username);
-
-            TestNoLastName(driver, LastName);
-            FirstName = driver.FindElement(By.Id("firstname"));
-            LastName = driver.FindElement(By.Id("lastname"));
-            Email = driver.FindElement(By.Id("email"));
-            ScreenName = driver.FindElement(By.Id("username"));
-            Password = driver.FindElement(By.Id("password"));
-            PasswordConfirm = driver.FindElement(By.Id("confirm"));
-            PhoneNum = driver.FindElement(By.Id("phone"));
-            Address = driver.FindElement(By.Id("address"));
-            Province = driver.FindElement(By.Id("province"));
-            PostalCode = driver.FindElement(By.Id("postalCode"));
-            Url = driver.FindElement(By.Id("url"));
-            Description = driver.FindElement(By.Id("desc"));
-            Location = driver.FindElement(By.Id("location"));
-            FillInfo(FirstName, LastName, Email, ScreenName, Password, PasswordConfirm, PhoneNum, Address, Province, PostalCode, Url, Description, Location, Username);
-            driver.FindElement(By.Id("button")).Click();
-            driver.SwitchTo().Alert().Accept();
+            TestNoPasswordLogin(driver1);
+            TestNoUsername(driver1);
+            TestNoAccount(driver1);
+            driver1.SwitchTo().Alert().Accept();
+            TestLogin(driver1);
 
             Thread.Sleep(10000);
-        }
-        static void FillInfo(IWebElement FirstName, IWebElement LastName, IWebElement Email, IWebElement ScreenName,
-            IWebElement Password, IWebElement PasswordConfirm, IWebElement PhoneNum, IWebElement Address, IWebElement Province,
-            IWebElement PostalCode, IWebElement Url, IWebElement Description, IWebElement Location, String Username)
-        {
-            Random random = new Random();
-            var Faker = new Faker("en");
-            FirstName.SendKeys(Faker.Name.FirstName());
-            LastName.SendKeys(Faker.Name.LastName());
-            Email.SendKeys("Email@Gmail.com");
-            string RandomName = new Random().Next(1,100000).ToString();
-            ScreenName.SendKeys(RandomName);
-            Password.SendKeys("Password123");
-            PasswordConfirm.SendKeys("Password123");
-            PhoneNum.SendKeys(Faker.Phone.PhoneNumberFormat());
-            Address.SendKeys(Faker.Address.StreetAddress());
-            int randomIndex = random.Next(1, 13);
-            Province.FindElement(By.XPath("//option[" + randomIndex + "]")).Click();
-            PostalCode.SendKeys(Faker.Address.ZipCode());
-            Url.SendKeys(Faker.Internet.Url());
-            Description.SendKeys(Faker.Rant.Review());
-            Location.SendKeys(Faker.Address.State());
         }
         static void TestOpenSignup(IWebDriver driver)
         {   // Test ID: TestOpen1
@@ -145,16 +82,35 @@ namespace QAProject
             Username.SendKeys(Name);
             driver.FindElement(By.Id("button")).Click();
         }
-        static void TestNoFirstName(IWebDriver driver, IWebElement FirstName)
-        {   // Test ID: TestNoName1
-            // Removes First name and it doesn't go throught
-            FirstName.Clear();
+        static void TestNoPasswordLogin(IWebDriver driver)
+        {   // Test ID: LoginNoPassword
+            // I made this account prior to this
+            IWebElement Username = driver.FindElement(By.Id("username"));
+            Username.SendKeys("Username");
+            driver.FindElement(By.Id("button")).Click();
+            Username.Clear();
+        }
+        static void TestNoUsername(IWebDriver driver)
+        {   // Test ID: LoginNoUsername
+            IWebElement Password = driver.FindElement(By.Id("password"));
+            Password.SendKeys("password");
+            driver.FindElement(By.Id("button")).Click();
+            Password.Clear();
+        }
+        static void TestNoAccount(IWebDriver driver)
+        {   // Test ID NoAccount
+            IWebElement Username = driver.FindElement(By.Id("username"));
+            Username.SendKeys("RealUsername");
+            IWebElement Password = driver.FindElement(By.Id("password"));
+            Password.SendKeys("RealPassword");
             driver.FindElement(By.Id("button")).Click();
         }
-         static void TestNoLastName(IWebDriver driver, IWebElement LastName)
-        {   // Test ID: TestNoName2
-            // Removes last name and it doesn't go throught
-            LastName.Clear();
+        static void TestLogin(IWebDriver driver)
+        {   // Test ID TestLogin
+            IWebElement Username = driver.FindElement(By.Id("username"));
+            Username.SendKeys("Example");
+            IWebElement Password = driver.FindElement(By.Id("password"));
+            Password.SendKeys("Password");
             driver.FindElement(By.Id("button")).Click();
         }
     }
