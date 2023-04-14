@@ -65,12 +65,16 @@ namespace QAProject
             driver1.SwitchTo().Alert().Accept();
             TestLogin(driver1);
 
+            // Tests Various account features
             TestTweet(driver1);
             TestFollow(driver1);
             driver1.SwitchTo().Alert().Accept();
             TestLike(driver1);
             TestCheckSelf(driver1);
             TestCheckSelf(driver1);
+
+            driver1.Url = "http://10.157.123.12/site8/login.php";
+            TestLogoLink(driver1);
 
             Thread.Sleep(10000);
         }
@@ -147,6 +151,11 @@ namespace QAProject
             //driver.FindElement(By.PartialLinkText("example")).Click();
             // Also this finds a bug!
             driver.Url = "http://10.157.123.12/site8/userpage.php?userID=71";
+        }
+        static void TestLogoLink(IWebDriver driver)
+        {   // Test ID: LogoLink
+            // This finds a bug
+            driver.FindElement(By.ClassName("logo")).Click();
         }
     }
 }
