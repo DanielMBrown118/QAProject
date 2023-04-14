@@ -67,12 +67,10 @@ namespace QAProject
             Description = driver.FindElement(By.Id("desc"));
             Location = driver.FindElement(By.Id("location"));
 
-            // This function fills every textbox
-            // Feel free to copy it
+            // This function fills every textbox in the signup
             FillInfo(FirstName, LastName, Email, ScreenName, Password, PasswordConfirm, PhoneNum, Address, Province, PostalCode, Url, Description, Location, Username);
 
             TestNoFirstName(driver, FirstName);
-
             FirstName = driver.FindElement(By.Id("firstname"));
             LastName = driver.FindElement(By.Id("lastname"));
             Email = driver.FindElement(By.Id("email"));
@@ -103,7 +101,8 @@ namespace QAProject
             Description = driver.FindElement(By.Id("desc"));
             Location = driver.FindElement(By.Id("location"));
             FillInfo(FirstName, LastName, Email, ScreenName, Password, PasswordConfirm, PhoneNum, Address, Province, PostalCode, Url, Description, Location, Username);
-
+            driver.FindElement(By.Id("button")).Click();
+            driver.SwitchTo().Alert().Accept();
 
             Thread.Sleep(10000);
         }
@@ -111,16 +110,17 @@ namespace QAProject
             IWebElement Password, IWebElement PasswordConfirm, IWebElement PhoneNum, IWebElement Address, IWebElement Province,
             IWebElement PostalCode, IWebElement Url, IWebElement Description, IWebElement Location, String Username)
         {
+            Random random = new Random();
             var Faker = new Faker("en");
             FirstName.SendKeys(Faker.Name.FirstName());
             LastName.SendKeys(Faker.Name.LastName());
             Email.SendKeys("Email@Gmail.com");
-            ScreenName.SendKeys(Username);
+            string RandomName = new Random().Next(1,100000).ToString();
+            ScreenName.SendKeys(RandomName);
             Password.SendKeys("Password123");
             PasswordConfirm.SendKeys("Password123");
             PhoneNum.SendKeys(Faker.Phone.PhoneNumberFormat());
             Address.SendKeys(Faker.Address.StreetAddress());
-            Random random = new Random();
             int randomIndex = random.Next(1, 13);
             Province.FindElement(By.XPath("//option[" + randomIndex + "]")).Click();
             PostalCode.SendKeys(Faker.Address.ZipCode());
@@ -128,7 +128,7 @@ namespace QAProject
             Description.SendKeys(Faker.Rant.Review());
             Location.SendKeys(Faker.Address.State());
         }
-            static void TestOpenSignup(IWebDriver driver)
+        static void TestOpenSignup(IWebDriver driver)
         {   // Test ID: TestOpen1
             // according to the instructions this counts as a test
             driver.Navigate().GoToUrl("http://10.157.123.12/site8/login.php");
