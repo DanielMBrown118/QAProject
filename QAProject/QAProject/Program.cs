@@ -9,6 +9,7 @@ using OpenQA.Selenium.Chrome;
 using Bogus;
 using System.Security.Cryptography.X509Certificates;
 using System.Runtime.CompilerServices;
+using static System.Net.WebRequestMethods;
 
 namespace QAProject
 {
@@ -57,11 +58,19 @@ namespace QAProject
             IWebDriver driver1 = new ChromeDriver("C:/Selenium");
             driver1.Navigate().GoToUrl("http://10.157.123.12/site8/login.php");
 
+            // Tests for login
             TestNoPasswordLogin(driver1);
             TestNoUsername(driver1);
             TestNoAccount(driver1);
             driver1.SwitchTo().Alert().Accept();
             TestLogin(driver1);
+
+            TestTweet(driver1);
+            TestFollow(driver1);
+            driver1.SwitchTo().Alert().Accept();
+            TestLike(driver1);
+            TestCheckSelf(driver1);
+            TestCheckSelf(driver1);
 
             Thread.Sleep(10000);
         }
@@ -112,6 +121,32 @@ namespace QAProject
             IWebElement Password = driver.FindElement(By.Id("password"));
             Password.SendKeys("Password");
             driver.FindElement(By.Id("button")).Click();
+        }
+        static void TestTweet(IWebDriver driver)
+        {   // TestID: Tweet
+            IWebElement TextBox = driver.FindElement(By.Id("myTweet"));
+            TextBox.Click();
+            TextBox.SendKeys("This is a cool website!");
+            driver.FindElement(By.Id("button")).Click();
+            driver.FindElement(By.Id("button")).Click();
+            driver.SwitchTo().Alert().Accept();
+        }
+        static void TestFollow(IWebDriver driver)
+        {   // TestID: Follow
+            IWebElement Follow = driver.FindElement(By.Name("Follow"));
+            Follow.Click();
+        }
+        static void TestLike(IWebDriver driver)
+        {   // Test ID: Like
+            IWebElement Like = driver.FindElement(By.ClassName("smallicon"));
+            Like.Click();
+        }
+        static void TestCheckSelf(IWebDriver driver)
+        {   // Test ID CheckSelf
+            // This line would work but would then crash the browser (I couldn't figure out why)
+            //driver.FindElement(By.PartialLinkText("example")).Click();
+            // Also this finds a bug!
+            driver.Url = "http://10.157.123.12/site8/userpage.php?userID=71";
         }
     }
 }
