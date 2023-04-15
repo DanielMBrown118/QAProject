@@ -305,5 +305,13 @@ namespace QAProject
             IWebElement NotificationsContainer = driver.FindElement(By.Id("notificationsContainer"));
             Debug.Assert(NotificationsContainer.Displayed, "Notifications container not displayed");
         }
+
+        static void TestNotificationItems(IWebDriver driver)
+        {   // Test ID: NotificationItemsTest
+            IWebElement NotificationsContainer = driver.FindElement(By.Id("notificationsContainer"));
+
+            IList<IWebElement> NotificationsList = NotificationsContainer.FindElements(By.ClassName("notificationItem"));
+            Debug.Assert(NotificationsList.Count > 0, "No notifications found");
+        }
     }
 }
