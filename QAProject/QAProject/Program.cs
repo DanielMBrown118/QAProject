@@ -213,5 +213,15 @@ namespace QAProject
             LastName.Clear();
             Description.Clear();
         }
+
+        static void TestInvalidPostalCode(IWebDriver driver)
+        {   // Test ID: InvalidPostalCode
+            IWebElement PostalCode = driver.FindElement(By.Id("postalCode"));
+            PostalCode.SendKeys("Invalid");
+            driver.FindElement(By.Id("button")).Click();
+            PostalCode.Clear();
+        }
+
+
     }
 }
