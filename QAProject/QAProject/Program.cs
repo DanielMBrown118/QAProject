@@ -279,5 +279,13 @@ namespace QAProject
             Debug.Assert(gmapIframe.Displayed, "Google Maps iframe not displayed");
         }
 
+        static void TestEmailLink(IWebDriver driver)
+        {
+            // Test ID: EmailLink
+            var emailLink = driver.FindElement(By.LinkText("erbear89@gmail.com"));
+            string href = emailLink.GetAttribute("href");
+            Debug.Assert(href.StartsWith("mailto:"), "Email link is not a mailto link");
+        }
+
     }
 }
