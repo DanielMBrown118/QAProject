@@ -313,5 +313,22 @@ namespace QAProject
             IList<IWebElement> NotificationsList = NotificationsContainer.FindElements(By.ClassName("notificationItem"));
             Debug.Assert(NotificationsList.Count > 0, "No notifications found");
         }
+
+        static void TestFirstNotificationElements(IWebDriver driver)
+        {   // Test ID: FirstNotificationElementsTest
+            IWebElement NotificationsContainer = driver.FindElement(By.Id("notificationsContainer"));
+            IList<IWebElement> NotificationsList = NotificationsContainer.FindElements(By.ClassName("notificationItem"));
+            IWebElement FirstNotification = NotificationsList[0];
+
+            IWebElement Avatar = FirstNotification.FindElement(By.ClassName("avatar"));
+            IWebElement Username = FirstNotification.FindElement(By.ClassName("username"));
+            IWebElement Message = FirstNotification.FindElement(By.ClassName("message"));
+            IWebElement Time = FirstNotification.FindElement(By.ClassName("time"));
+
+            Debug.Assert(Avatar.Displayed, "Avatar not displayed in first notification");
+            Debug.Assert(Username.Displayed, "Username not displayed in first notification");
+            Debug.Assert(Message.Displayed, "Message not displayed in first notification");
+            Debug.Assert(Time.Displayed, "Time not displayed in first notification");
+        }
     }
 }
