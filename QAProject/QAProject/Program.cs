@@ -183,5 +183,16 @@ namespace QAProject
             Password.Clear();
             PasswordConfirm.Clear();
         }
+
+        static void TestPasswordMismatch(IWebDriver driver)
+        {   // Test ID: PasswordMismatch
+            IWebElement Password = driver.FindElement(By.Id("password"));
+            IWebElement PasswordConfirm = driver.FindElement(By.Id("confirm"));
+            Password.SendKeys("correct_password");
+            PasswordConfirm.SendKeys("wrong_password");
+            driver.FindElement(By.Id("button")).Click();
+            Password.Clear();
+            PasswordConfirm.Clear();
+        }
     }
 }
