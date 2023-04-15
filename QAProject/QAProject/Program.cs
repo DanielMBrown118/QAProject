@@ -173,6 +173,15 @@ namespace QAProject
             Url.Clear();
         }
 
-
+        static void TestShortPassword(IWebDriver driver)
+        {   // Test ID: ShortPassword
+            IWebElement Password = driver.FindElement(By.Id("password"));
+            IWebElement PasswordConfirm = driver.FindElement(By.Id("confirm"));
+            Password.SendKeys("short");
+            PasswordConfirm.SendKeys("short");
+            driver.FindElement(By.Id("button")).Click();
+            Password.Clear();
+            PasswordConfirm.Clear();
+        }
     }
 }
