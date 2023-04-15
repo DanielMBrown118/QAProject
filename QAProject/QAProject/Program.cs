@@ -157,5 +157,12 @@ namespace QAProject
             // This finds a bug
             driver.FindElement(By.ClassName("logo")).Click();
         }
+        static void TestInvalidEmail(IWebDriver driver)
+        {   // Test ID: InvalidEmail
+            IWebElement Email = driver.FindElement(By.Id("email"));
+            Email.SendKeys("invalid_email");
+            driver.FindElement(By.Id("button")).Click();
+            Email.Clear();
+        }
     }
 }
