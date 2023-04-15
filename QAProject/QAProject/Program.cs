@@ -53,6 +53,15 @@ namespace QAProject
             driver.SwitchTo().Alert().Accept();
             TestOpenSignup(driver);
 
+            TestInvalidEmail(driver);
+            TestInvalidUrl(driver);
+            TestShortPassword(driver);
+            TestPasswordMismatch(driver);
+            TestCheckMaxLengths(driver);
+            TestInvalidPostalCode(driver);
+            TestInvalidPhoneNum(driver);
+
+
             driver.Close();
 
             IWebDriver driver1 = new ChromeDriver("C:/Selenium");
