@@ -271,5 +271,13 @@ namespace QAProject
             }
         }
 
+        static void TestGoogleMapsIframe(IWebDriver driver)
+        {
+            // Test ID: GoogleMapsIframe
+            var gmapIframe = driver.FindElement(By.Id("gmap_canvas"));
+            Debug.Assert(gmapIframe != null, "Google Maps iframe not found");
+            Debug.Assert(gmapIframe.Displayed, "Google Maps iframe not displayed");
+        }
+
     }
 }
