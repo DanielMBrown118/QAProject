@@ -222,6 +222,12 @@ namespace QAProject
             PostalCode.Clear();
         }
 
-
+        static void TestInvalidPhoneNum(IWebDriver driver)
+        {   // Test ID: InvalidPhoneNum
+            IWebElement PhoneNum = driver.FindElement(By.Id("phone"));
+            PhoneNum.SendKeys("Invalid");
+            driver.FindElement(By.Id("button")).Click();
+            PhoneNum.Clear();
+        }
     }
 }
