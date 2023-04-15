@@ -194,5 +194,24 @@ namespace QAProject
             Password.Clear();
             PasswordConfirm.Clear();
         }
+
+        static void TestCheckMaxLengths(IWebDriver driver)
+        {   // Test ID: CheckMaxLengths
+            IWebElement FirstName = driver.FindElement(By.Id("firstname"));
+            IWebElement LastName = driver.FindElement(By.Id("lastname"));
+            IWebElement Description = driver.FindElement(By.Id("desc"));
+
+            string longString = new string('A', 1001);
+
+            FirstName.SendKeys(longString);
+            LastName.SendKeys(longString);
+            Description.SendKeys(longString);
+
+            driver.FindElement(By.Id("button")).Click();
+
+            FirstName.Clear();
+            LastName.Clear();
+            Description.Clear();
+        }
     }
 }
