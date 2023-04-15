@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Runtime.CompilerServices;
 using static System.Net.WebRequestMethods;
 using System.Diagnostics;
+using System.Net;
 
 namespace QAProject
 {
@@ -247,5 +248,28 @@ namespace QAProject
             string pageTitle = driver.Title;
             Debug.Assert(pageTitle == "Contact Us", "Expected 'Contact Us', but got " + pageTitle);
         }
+
+        static void TestBrokenLinks(IWebDriver driver)
+        {
+            // Test ID: BrokenLinks
+            // Iterate through all the anchor tags on the page and check if they navigate to a valid URL
+            var links = driver.FindElements(By.TagName("a"));
+
+            foreach (var link in links)
+            {
+                string href = link.GetAttribute("href");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(href);
+                try
+                {
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    Debug.Assert(response.StatusCode == HttpStatusCode.OK, "Broken link: " + href);
+                }
+                catch (Exception e)
+                {
+                    Debug.Fail("Broken link: " + href);
+                }
+            }
+        }
+
     }
 }
