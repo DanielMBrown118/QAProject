@@ -10,6 +10,7 @@ using Bogus;
 using System.Security.Cryptography.X509Certificates;
 using System.Runtime.CompilerServices;
 using static System.Net.WebRequestMethods;
+using System.Diagnostics;
 
 namespace QAProject
 {
@@ -237,6 +238,14 @@ namespace QAProject
             PhoneNum.SendKeys("Invalid");
             driver.FindElement(By.Id("button")).Click();
             PhoneNum.Clear();
+        }
+
+        static void TestContactUsPageLoad(IWebDriver driver)
+        {
+            // Test ID: ContactUsPageLoad
+            driver.Navigate().GoToUrl("http://10.157.123.12/site8/contactus.php");
+            string pageTitle = driver.Title;
+            Debug.Assert(pageTitle == "Contact Us", "Expected 'Contact Us', but got " + pageTitle);
         }
     }
 }
