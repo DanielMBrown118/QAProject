@@ -67,6 +67,7 @@ namespace QAProject
             TestGoogleMapsIframe(driver);
             TestEmailLink(driver);
 
+
             driver.Close();
 
             IWebDriver driver1 = new ChromeDriver("C:/Selenium");
@@ -290,5 +291,10 @@ namespace QAProject
             Debug.Assert(href.StartsWith("mailto:"), "Email link is not a mailto link");
         }
 
+        static void TestNotificationIcon(IWebDriver driver)
+        {   // Test ID: NotificationIconTest
+            IWebElement NotificationIcon = driver.FindElement(By.Id("notificationIcon"));
+            Debug.Assert(NotificationIcon.Displayed, "Notification icon not displayed");
+        }
     }
 }
