@@ -62,7 +62,10 @@ namespace QAProject
             TestCheckMaxLengths(driver);
             TestInvalidPostalCode(driver);
             TestInvalidPhoneNum(driver);
-
+            TestContactUsPageLoad(driver);
+            TestBrokenLinks(driver);
+            TestGoogleMapsIframe(driver);
+            TestEmailLink(driver);
 
             driver.Close();
 
