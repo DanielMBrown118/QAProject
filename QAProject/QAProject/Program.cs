@@ -296,5 +296,14 @@ namespace QAProject
             IWebElement NotificationIcon = driver.FindElement(By.Id("notificationIcon"));
             Debug.Assert(NotificationIcon.Displayed, "Notification icon not displayed");
         }
+
+        static void TestNotificationContainer(IWebDriver driver)
+        {   // Test ID: NotificationContainerTest
+            IWebElement NotificationIcon = driver.FindElement(By.Id("notificationIcon"));
+            NotificationIcon.Click();
+
+            IWebElement NotificationsContainer = driver.FindElement(By.Id("notificationsContainer"));
+            Debug.Assert(NotificationsContainer.Displayed, "Notifications container not displayed");
+        }
     }
 }
