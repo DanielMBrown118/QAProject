@@ -164,5 +164,15 @@ namespace QAProject
             driver.FindElement(By.Id("button")).Click();
             Email.Clear();
         }
+
+        static void TestInvalidUrl(IWebDriver driver)
+        {   // Test ID: InvalidUrl
+            IWebElement Url = driver.FindElement(By.Id("url"));
+            Url.SendKeys("invalid_url");
+            driver.FindElement(By.Id("button")).Click();
+            Url.Clear();
+        }
+
+
     }
 }
