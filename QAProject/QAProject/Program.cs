@@ -66,6 +66,10 @@ namespace QAProject
             TestBrokenLinks(driver);
             TestGoogleMapsIframe(driver);
             TestEmailLink(driver);
+            TestNotificationIcon(driver);
+            TestNotificationContainer(driver);
+            TestNotificationItems(driver);
+            TestFirstNotificationElements(driver);
 
 
             driver.Close();
